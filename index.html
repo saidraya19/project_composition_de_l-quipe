@@ -6,6 +6,7 @@
     <title>Document</title>
     <script src="https://cdn.jsdelivr.net/npm/@tailwindcss/browser@4"></script>
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
+    <link rel="stylesheet" href="style.css">
 </head>
 <body class="bg-slate-900">
 
@@ -59,30 +60,121 @@
 
     </header>
 
-    <main class="min-h-screen text-white">
+   
+   <main class="main-container">
+    <div class="flex justify-center items-center" >
+    <div class="w-120 border h-115 p-10  rounded-xl " >
+        <div class="flex   justify-between items-center">
+        <h2> <strong>ajouter un joueur</strong></h2>
+        <button class=" flex justify-center bg-red-500 rounded-2xl w-7 h-6.5 "  id="btn-exist"><strong>X</strong></button>
+        </div>
+        <br>
+        <div class=" flex flex-col">
+        <label class="cursor-pointer" for="player">nom complet</label>
+        <input  class="w-100 h-9 border rounded-md" type="text" required  placeholder="Ex. cristiano ronaldo" id="player">
+        <br>
+        </div>
+        <h3 class="opacity-40">poste</h3>
+<div class="flex flex-col gap-6 ">
 
-        <div>
-            <div>
-                <button>+ajouter</button>
+    <div class="flex items-center gap-8">
+        <div class="flex items-center gap-2 ">
+            <span class="w-3 h-3 bg-yellow-500 rounded-full"></span>
+            <button class="bg-[#111a2d] border rounded-xl py-1.5 px-14 cursor-pointer"><strong>Gardien</strong></button>
+        </div>
+
+        <div class="flex items-center gap-2">
+            <span class="w-3 h-3 bg-green-500 rounded-full"></span>
+            <button class="bg-[#111a2d] border rounded-xl py-1.5 px-16 cursor-pointer"><strong>Milieu</strong></button>
+        </div>
+    </div>
+
+    <div class="flex items-center gap-8">
+        <div class="flex items-center  gap-2 bg">
+            <span class="w-3 h-3 bg-blue-500 rounded-full"></span>
+            <button class="bg-[#111a2d] border rounded-xl py-1.5 px-12 cursor-pointer"><strong>Défenseur</strong></button>
+        </div>
+
+        <div class="flex items-center gap-2">
+            <span class="w-3 h-3 bg-red-500 rounded-full"></span>
+            <button class="bg-[#111a2d] border rounded-xl py-1.5 px-12 cursor-pointer"><strong>Attaquant</strong></button>
+        </div>
+    </div>
+    <div class="flex justify-center">
+    <div class="flex flex-col">
+       
+        <label class="cursor-pointer" for="numberofplayer">Numéro (1 á 99)</label>
+        <input class=" border w-100 h-9 rounded-md" type="number" required  placeholder="Ex. 7" id="numberofplayer">
+
+    </div>
+    </div>
+
+</div>
+        
+    </div>
+    </div>
+    <div class="sections">
+        
+       
+        <div class="sidebar">
+            <div class="add-player-box">
+                <button class="btn-add">+ Ajouter un joueur</button>
             </div>
-        <div class="flex items-center justify-between gap-2 p-3 text-xl">
 
-            <h2>
-                <strong>Effectif</strong>
-            </h2>
+            <div class="effectif-header"> 
+                <h2><strong>Effectif</strong></h2>
+                <div id="number" class="badge">
+                    <span>7</span> <strong>joueurs</strong>
+                </div>
+            </div>
 
-            <h2 id="number" class="rounded-xl border border-white p-1.5">
-                <span>7</span>
-                <strong>joueurs</strong>
-            </h2>
+            <div class="description-text">
+                <p>Cliquez sur un joueur placé pour voir sa case sur le terrain. ✏️ pour modifier, 🗑️ pour supprimer</p>
+            </div>
 
+            <div class="player-card">
+                <div class="player-info">
+                    <div class="player-number">
+                        <h2>1</h2>
+                    </div>
+                    <div class="player-details">
+                        <strong>bono</strong>
+                        <p>Gardien</p>
+                    </div>
+                </div>
+
+                <div class="select-group">
+                    <label for="position-select">Sélectionner la position :</label>
+                    <select id="position-select" class="custom-select">
+                        <option value="" disabled selected>Choisir une position...</option>
+                        <option value="GB">GB - Gardien</option>
+                        <option value="DG">DG - Défenseur gauche</option>
+                        <option value="DC">DC - Défenseur central 1</option>
+              
+                    </select>
+                </div>
+            </div>
+        </div>        
+        <div id="tairen" class="terrain-container">
+            <div class="par2">
+                <div class="bo6"><h2>GB</h2><p>libre</p></div>
+                <div class="bo1"><h2>DG</h2><p>libre</p></div>
+                <div class="bo4"><h2>DC</h2><p>libre</p></div>
+                <div class="bo7"><h2>DC</h2><p>libre</p></div>
+                <div class="bo10"><h2>DD</h2><p>libre</p></div>
+                <div class="bo2"><h2>MG</h2><p>libre</p></div>
+                <div class="bo5"><h2>MC</h2><p>libre</p></div>
+                <div class="bo8"><h2>MC</h2><p>libre</p></div>
+                <div class="bo11"><h2>MD</h2><p>libre</p></div>
+                <div class="bo3"><h2>BU</h2><p>libre</p></div>
+                <div class="bo9"><h2>BU</h2><p>libre</p></div>
+            </div>
         </div>
 
-        </div>
-
-    </main>
+    </div>
+</main>
 
 </body>
-```
 
+<script type="module" src=""></script>
 </html>
