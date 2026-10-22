@@ -60,21 +60,21 @@
 
     </header>
 
-   
    <main class="main-container">
-    <div class="absolute w-full h-full flex justify-center items-center  backdrop-blur-[1px] " hidden>
+    <div class=" scall absolute w-full h-full flex justify-center items-center  backdrop-blur-[1px] " hidden id="ajout">
  <div class="flex justify-center items-center " >
     <div class="w-120 border h-115 p-10  rounded-xl bg-slate-950  " >
         <div class="flex   justify-between items-center">
         <h2> <strong>ajouter un joueur</strong></h2>
-        <button class=" flex justify-center bg-red-500 rounded-2xl w-7 h-6.5 "  id="btn-exist"><strong>X</strong></button>
+        <button class=" flex justify-center bg-red-500 rounded-2xl w-7 h-6.5 ajout-btn"><strong>X</strong></button>
         </div>
         <br>
         <div class=" flex flex-col">
         <label class="cursor-pointer" for="player">nom complet</label>
         <input  class="w-100 h-9 border rounded-md" type="text" required  placeholder="Ex. cristiano ronaldo" id="player">
-        <br>
         </div>
+        <p class="error-msg-name"></p>
+        <br>
         <h3 class="opacity-40">poste</h3>
 <div class="flex flex-col gap-6 " >
 
@@ -97,35 +97,31 @@
         </div>
 
         <div class="flex items-center gap-2">
-            <span class="w-3 h-3 bg-red-500 rounded-full"></span>
-            <button class="bg-[#111a2d] border rounded-xl py-1.5 px-12 cursor-pointer"><strong>Attaquant</strong></button>
+            <span class="w-3 h-3 bg-red-500 rounded-full"></span><button class="bg-[#111a2d] border rounded-xl py-1.5 px-12 cursor-pointer"><strong>Attaquant</strong></button>
         </div>
     </div>
     <div class="flex justify-center">
     <div class="flex flex-col">
-       
         <label class="cursor-pointer" for="numberofplayer">Numéro (1 á 99)</label>
         <input class=" border w-100 h-9 rounded-md" type="number" required  placeholder="Ex. 7" id="numberofplayer">
-
     </div>
+    </div>
+     <p class="msg-number"></p>
+     <div class="flex justify-end gap-4 classs">
+        <button class="bg-[#111a2d] border rounded-xl py-1.5 px-4 cursor-pointer ajout-btn "> <strong>Annuler</strong></button>
+        <button class= "bg-green-500 border rounded-xl py-1.5 px-4 cursor-pointer " id="btn-submit"> <strong>Ajouter</strong></button>
     </div>
 
 </div>
-        
     </div>
     </div>
     </div>
 
-   
     <div class="sections">
-        
-       
         <div class="sidebar">
             <div class="add-player-box">
-                <button class="btn-add">+ Ajouter un joueur</button>
-            </div>
-
-            <div class="effectif-header"> 
+                <button class="btn-add ajout-btn">+ Ajouter un joueur</button></div>
+            <div class="effectif-header">
                 <h2><strong>Effectif</strong></h2>
                 <div id="number" class="badge">
                     <span>7</span> <strong>joueurs</strong>
@@ -154,11 +150,10 @@
                         <option value="GB">GB - Gardien</option>
                         <option value="DG">DG - Défenseur gauche</option>
                         <option value="DC">DC - Défenseur central 1</option>
-              
                     </select>
                 </div>
             </div>
-        </div>        
+        </div>
         <div id="tairen" class="terrain-container">
             <div class="par2">
                 <div class="bo6"><h2>GB</h2><p>libre</p></div>
@@ -179,6 +174,6 @@
 </main>
 
 </body>
-
+<script src="team.js"></script>
 
 </html>

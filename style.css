@@ -245,3 +245,27 @@ body {
 .sections{
     display:flex;
 }
+.scall {
+    animation: scall 0.65s linear forwards;
+}
+
+@keyframes scall {
+    0% {
+        scale: 0;
+        opacity: 0;
+    }
+
+    100% {
+        scale: 1;
+        opacity: 1;
+    }
+}
+.error-massage{
+    position: relative;
+    bottom: 25px;
+}
+.classs{
+    position: relative;
+    bottom: 40px;
+}
+
