@@ -1,4 +1,4 @@
- let list_of_players = [
+ let initial_players = [
     { name: "Thibaut Courtois", number: 1, post: "Gardien" },
     { name: "Achraf Hakimi", number: 2, post: "Défenseur" },
     { name: "Sergio Ramos", number: 4, post: "Défenseur" },
@@ -23,10 +23,11 @@ const key ="my_key";
 function setitems(users){
      localStorage.setItem(key, JSON.stringify(users));
 }
-function getitems(users){
-    return JSON.parse(localStorage.getItem(key)) || [];
+function getitems() {
+    const savedPlayers = localStorage.getItem(key);
+    return savedPlayers ? JSON.parse(savedPlayers) : initial_players;
 }
-setitems(list_of_players)
+let list_of_players = getitems();
 const number = document.querySelector("#numberofplayer")
 const  regexofnumber = /^([1-9]|[1-9][0-9])$/;
 const regexNom = /^[A-Za-zÀ-ÿ ]{3,30}$/;
@@ -70,6 +71,7 @@ if (nomValide && numeroValide && !number_validation && post !== "") {
     };
 
     list_of_players.push(add_data);
+    setitems(list_of_players);
 
     show(add_data);
 
@@ -175,8 +177,9 @@ if (select.value === "banc") {
     player.positionChoisie = "";
     return;
 }
-    console.log(player.name, player.number, player.positionChoisie);
+
     const have_post = posible_posts[player.post].includes(select.value)
+ 
     if(have_post)
     {
         const positions = document.querySelectorAll("[data-position]")
@@ -292,20 +295,8 @@ remove.addEventListener("click", function() {
             if (position) {
                 position.querySelector("p").textContent = "Libre";
 
-                position.classList.remove(
-                    "bg-blue-400/50!",
-                    "bg-green-400/50!",
-                    "bg-red-400/50!",
-                    "bg-yellow-400/50!",
-                    "border",
-                    "border-white!"
-                );
-
-                position.classList.add(
-                    "border-2",
-                    "border-dashed",
-                    "border-white/40"
-                );
+                position.classList.remove("bg-blue-400/50!","bg-green-400/50!","bg-red-400/50!","bg-yellow-400/50!","border","border-white!");
+                position.classList.add("border-2","border-dashed","border-white/40");
             }
         }
 
@@ -319,6 +310,7 @@ remove.addEventListener("click", function() {
         document.querySelector(".length").textContent =
             list_of_players.length;
         modal.setAttribute("hidden", "");
+        setitems(list_of_players);
     };
 });
 edit.addEventListener("click", function() {
@@ -333,7 +325,7 @@ edit.addEventListener("click", function() {
             btn.classList.add("bg-[oklch(66.6%_0.179_58.318)]");
         }
     });
-
+    
     editModal.removeAttribute("hidden");
 });
 card.append(div_name_post)
@@ -396,10 +388,10 @@ joueurEnModification.post = postEdit;
                 `${joueurEnModification.number}  ${joueurEnModification.name}`;
         }
     }
+    setitems(list_of_players);
     editModal.setAttribute("hidden", "");
     joueurEnModification = null;
     postEdit = "";
-
 });
 
 for(const player of list_of_players)
