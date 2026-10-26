@@ -1,4 +1,4 @@
- let initial_players = [
+let initial_players = [
     { name: "Thibaut Courtois", number: 1, post: "Gardien" },
     { name: "Achraf Hakimi", number: 2, post: "Défenseur" },
     { name: "Sergio Ramos", number: 4, post: "Défenseur" },
@@ -20,17 +20,18 @@ formajout.toggleAttribute("hidden")
 });
 });
 const key ="my_key";
+
 function setitems(users){
      localStorage.setItem(key, JSON.stringify(users));
 }
 function getitems() {
-    const savedPlayers = localStorage.getItem(key);
-    return savedPlayers ? JSON.parse(savedPlayers) : initial_players;
+    const saved_players = localStorage.getItem(key);
+    return saved_players ? JSON.parse(saved_players) : initial_players;
 }
 let list_of_players = getitems();
 const number = document.querySelector("#numberofplayer")
 const  regexofnumber = /^([1-9]|[1-9][0-9])$/;
-const regexNom = /^[A-Za-zÀ-ÿ ]{3,30}$/;
+const regex_nom = /^[A-Za-zÀ-ÿ ]{3,30}$/;
 const name_ = document.querySelector("#player")
 const error_name = document.querySelector(".error-msg-name")
 const error_number = document.querySelector(".msg-number")
@@ -40,14 +41,14 @@ btn_sub.addEventListener("click", function(){
 let msg_name = "";
 let number_msg = "";
 
-const nomValide = regexNom.test(name_.value.trim());
-const numeroValide = regexofnumber.test(number.value);
+const nom_valide = regex_nom.test(name_.value.trim());
+const numero_valide = regexofnumber.test(number.value);
 
-if (!nomValide) {
+if (!nom_valide) {
     msg_name = "Veuillez saisir un nom valide.";
 }
 
-if (!numeroValide) {
+if (!numero_valide) {
     number_msg = "Numéro invalide. Veuillez saisir un numéro entre 1 et 99";
 }
 
@@ -55,14 +56,14 @@ const number_validation = list_of_players.some(function(player) {
     return player.number === Number(number.value);
 });
 
-if (numeroValide && number_validation) {
+if (numero_valide && number_validation) {
     number_msg = "Numéro déjà utilisé";
 }
 
 error_number.textContent = number_msg;
 error_name.textContent = msg_name;
 
-if (nomValide && numeroValide && !number_validation && post !== "") {
+if (nom_valide && numero_valide && !number_validation && post !== "") {
 
     const add_data = {
         name: name_.value.trim(),
@@ -128,56 +129,87 @@ if (nomValide && numeroValide && !number_validation && post !== "") {
            
         })
      
-/* kanjibo select nakhdo mnha noskha*/
 const all = document.querySelector(".form_general_player");
-const selectTemplate = all.querySelector(".select-group").cloneNode(true);
+const select_template = all.querySelector(".select-group").cloneNode(true);
 all.querySelector(".player-card").remove();
-let joueurEnModification = null;
-let postEdit = "";
+let joueur_en_modification = null;
+let post_edit = "";
 
-const editModal = document.querySelector("#modifier");
-const editName = document.querySelector("#edit-player");
-const editNumber = document.querySelector("#edit-numberofplayer");
-const editSubmit = document.querySelector("#btn-edit-submit");
-const editErrorName = document.querySelector(".edit-error-msg-name");
-const editErrorNumber = document.querySelector(".edit-msg-number");
-const editPostButtons = editModal.querySelectorAll(".edit-btn-post");
-editPostButtons.forEach(function(btn) {
+const edit_modal = document.querySelector("#modifier");
+const edit_name = document.querySelector("#edit-player");
+const edit_number = document.querySelector("#edit-numberofplayer");
+const edit_submit = document.querySelector("#btn-edit-submit");
+const edit_error_name = document.querySelector(".edit-error-msg-name");
+const edit_error_number = document.querySelector(".edit-msg-number");
+const edit_post_buttons = edit_modal.querySelectorAll(".edit-btn-post");
+edit_post_buttons.forEach(function(btn) {
 
     btn.addEventListener("click", function() {
 
-        editPostButtons.forEach(function(otherBtn) {
-            otherBtn.classList.remove("bg-[oklch(66.6%_0.179_58.318)]");
+        edit_post_buttons.forEach(function(other_btn) {
+            other_btn.classList.remove("bg-[oklch(66.6%_0.179_58.318)]");
         });
 
         btn.classList.add("bg-[oklch(66.6%_0.179_58.318)]");
-        postEdit = btn.textContent.trim();
+        post_edit = btn.textContent.trim();
 
     });
 
 });
-function show(player){
-    const selectGroup = selectTemplate.cloneNode(true);
 
-const select = selectGroup.querySelector("select");
+const colors = {
+    "Gardien": "border-l-yellow-500!",
+    "Défenseur": "border-l-blue-500!",
+    "Milieu": "border-l-green-500!",
+    "Attaquant": "border-l-red-500!"
+};
+
+const border_by_pos = {
+    GB: "border-yellow-400!",
+    DG: "border-blue-400!", DC1: "border-blue-400!", DC2: "border-blue-400!", DD: "border-blue-400!",
+    MG: "border-green-400!", MC1: "border-green-400!", MC2: "border-green-400!", MD: "border-green-400!",
+    BU1: "border-red-400!", BU2: "border-red-400!"
+};
+const all_box_borders = ["border-yellow-400!", "border-blue-400!", "border-green-400!", "border-red-400!"];
+
+function colorer_joueur(container, div_number, poste) {
+
+    const all_colors = Object.values(colors);
+
+    container.classList.remove(...all_colors);
+    div_number.classList.remove(...all_colors);
+
+    const color = colors[poste];
+
+    if (color) {
+        container.classList.add("border-l-4!", color);
+        div_number.classList.add("border-l-4!", color);
+    }
+
+    console.log("Poste:", poste, "| Couleur:", color);
+}
+function show(player){
+    const select_group = select_template.cloneNode(true);
+
+const select = select_group.querySelector("select");
 select.addEventListener("change", function() {
 if (select.value === "banc") {
 
-    if (player.positionChoisie) {
+    if (player.position_choisie) {
 
-        const anciennePosition = document.querySelector(
-            `[data-position="${player.positionChoisie}"]`
+        const ancienne_position = document.querySelector(
+            `[data-position="${player.position_choisie}"]`
         );
-        if (anciennePosition) {
-            anciennePosition.querySelector("p").textContent = "Libre";
-            anciennePosition.classList.remove("bg-blue-400/50!","bg-green-400/50!","bg-red-400/50!","bg-yellow-400/50!","border","border-white!");
-            anciennePosition.classList.add("border-2","border-dashed","border-white/40");
+        if (ancienne_position) {
+            ancienne_position.querySelector("p").textContent = "Libre";
+            ancienne_position.classList.remove("bg-blue-400/50!","bg-green-400/50!","bg-red-400/50!","bg-yellow-400/50!","border","border-white!", ...all_box_borders);
+            ancienne_position.classList.add("border-2","border-dashed","border-white/40");
         }
     }
-    player.positionChoisie = "";
+    player.position_choisie = "";
     return;
 }
-
+    console.log(player.name, player.number, player.position_choisie);
     const have_post = posible_posts[player.post].includes(select.value)
  
     if(have_post)
@@ -189,7 +221,7 @@ if (select.value === "banc") {
                 const paragraph = position.querySelector("p");
                 if(paragraph.textContent.trim() === "Libre")
                 {
-                     position.classList.add("border-2", "border", "border-white!");
+                     position.classList.add("border-2", "border", border_by_pos[select.value]);
                  position.classList.remove("border-dashed", "border-white/40");
                     if(select.value.trim() === "GB")
                 {
@@ -210,7 +242,7 @@ if (select.value === "banc") {
 
                         if(select.value.trim() === "Sur le banc" || other_paragraph.textContent.trim() === `${player.number}  ${player.name}`)
                         {
-                            position.classList.remove("bg-blue-400/50!","bg-green-400/50!", "bg-red-400/50!","bg-yellow-400/50!","border","border-white!")
+                            position.classList.remove("bg-blue-400/50!","bg-green-400/50!", "bg-red-400/50!","bg-yellow-400/50!","border","border-white!", ...all_box_borders)
                             other_paragraph.textContent = "Libre";
                             position.classList.remove("bg-blue-400/50!")
                             position.classList.remove("bg-green-400/50!")
@@ -221,7 +253,7 @@ if (select.value === "banc") {
                         }
                     })
                     paragraph.textContent = `${player.number}  ${player.name}`  
-                    player.positionChoisie = select.value;
+                    player.position_choisie = select.value;
                 }
             }
         })
@@ -251,13 +283,10 @@ const nom = document.createElement("strong")
 const post = document.createElement("p")
 post.textContent = player.post;
 nom.textContent = player.name;
-
 const edit = document.createElement("button");
 edit.type = "button";
 edit.textContent = "✏️";
 edit.classList.add("cursor-pointer");
-
-
 const remove = document.createElement("button");
 remove.type = "button";
 remove.innerHTML = '<i class="fa-solid fa-trash"></i>';
@@ -269,8 +298,9 @@ name_row.classList.add("flex", "items-center", "gap-2");
 name_row.append(nom, edit, remove);
 
 
-div_name_post.append(name_row, post, selectGroup);
+div_name_post.append(name_row, post, select_group);
 div_name_post.classList.add("player-details");
+colorer_joueur(container, div_number, player.post);
 remove.addEventListener("click", function() {
 
     const modal = document.querySelector("#modal-delete");
@@ -287,15 +317,15 @@ remove.addEventListener("click", function() {
     document.querySelector("#confirm-delete").onclick = function() {
 
 
-        if (player.positionChoisie) {
+        if (player.position_choisie) {
             const position = document.querySelector(
-                `[data-position="${player.positionChoisie}"]`
+                `[data-position="${player.position_choisie}"]`
             );
 
             if (position) {
                 position.querySelector("p").textContent = "Libre";
 
-                position.classList.remove("bg-blue-400/50!","bg-green-400/50!","bg-red-400/50!","bg-yellow-400/50!","border","border-white!");
+                position.classList.remove("bg-blue-400/50!","bg-green-400/50!","bg-red-400/50!","bg-yellow-400/50!","border","border-white!", ...all_box_borders);
                 position.classList.add("border-2","border-dashed","border-white/40");
             }
         }
@@ -314,11 +344,11 @@ remove.addEventListener("click", function() {
     };
 });
 edit.addEventListener("click", function() {
-    joueurEnModification = player;
-    editName.value = player.name;
-    editNumber.value = player.number;
-    postEdit = player.post;
-    editPostButtons.forEach(function(btn) {
+    joueur_en_modification = player;
+    edit_name.value = player.name;
+    edit_number.value = player.number;
+    post_edit = player.post;
+    edit_post_buttons.forEach(function(btn) {
         btn.classList.remove("bg-[oklch(66.6%_0.179_58.318)]");
 
         if (btn.textContent.trim() === player.post) {
@@ -326,7 +356,7 @@ edit.addEventListener("click", function() {
         }
     });
     
-    editModal.removeAttribute("hidden");
+    edit_modal.removeAttribute("hidden");
 });
 card.append(div_name_post)
 players_all.append(card)
@@ -334,64 +364,75 @@ div_parent.append(players_all)
 container.append(div_parent)
 all.append(container);
 }
-editSubmit.addEventListener("click", function() {
-    if (!joueurEnModification) {
+edit_submit.addEventListener("click", function() {
+     if (!joueur_en_modification) {
         return;
     }
-    const nomValide = regexNom.test(editName.value.trim());
-    const numeroValide = regexofnumber.test(editNumber.value);
-    const numeroUtilise = list_of_players.some(function(p) {
-        return p.number === Number(editNumber.value)
-            && p !== joueurEnModification;
+  
+    const nom_valide = regex_nom.test(edit_name.value.trim());
+    const numero_valide = regexofnumber.test(edit_number.value);
+    const numero_utilise = list_of_players.some(function(p) {
+        return p.number === Number(edit_number.value)
+            && p !== joueur_en_modification;
     });
-    editErrorName.textContent = nomValide
+    edit_error_name.textContent = nom_valide
         ? ""
         : "Veuillez saisir un nom valide.";
-    if (!numeroValide) {
-        editErrorNumber.textContent = "Numéro invalide. Saisissez un numéro entre 1 et 99.";
-    } else if (numeroUtilise) {
-        editErrorNumber.textContent = "Numéro déjà utilisé.";
+    if (!numero_valide) {
+        edit_error_number.textContent = "Numéro invalide. Saisissez un numéro entre 1 et 99.";
+    } else if (numero_utilise) {
+        edit_error_number.textContent = "Numéro déjà utilisé.";
     } else {
-        editErrorNumber.textContent = "";
+        edit_error_number.textContent = "";
     }
-    if (!nomValide || !numeroValide || numeroUtilise || postEdit === "") {
+    if (!nom_valide || !numero_valide || numero_utilise || post_edit === "") {
         return;
     }
 
-const oldNumber = joueurEnModification.number;
-const playerCard = document.querySelector(
-    `.player-card[data-player-number="${oldNumber}"]`
+const old_number = joueur_en_modification.number;
+const player_card = document.querySelector(
+    `.player-card[data-player-number="${old_number}"]`
 );
-joueurEnModification.name = editName.value.trim();
-joueurEnModification.number = Number(editNumber.value);
-joueurEnModification.post = postEdit;
+joueur_en_modification.name = edit_name.value.trim();
+joueur_en_modification.number = Number(edit_number.value);
+joueur_en_modification.post = post_edit;
 
-    if (playerCard) {
-       playerCard.dataset.playerNumber = joueurEnModification.number;
-       
-        playerCard.querySelector(".player-number h2").textContent =joueurEnModification.number;
+    if (player_card) {
 
-        playerCard.querySelector(".player-details strong").textContent =
-            joueurEnModification.name;
+    const numero_element = player_card.querySelector(".player-number");
 
-        playerCard.querySelector(".player-details p").textContent =
-            joueurEnModification.post;
-    }
+    colorer_joueur(
+        player_card,
+        numero_element,
+        joueur_en_modification.post
+    );
+
+    player_card.dataset.playerNumber = joueur_en_modification.number;
+
+    player_card.querySelector(".player-number h2").textContent =
+        joueur_en_modification.number;
+
+    player_card.querySelector(".player-details strong").textContent =
+        joueur_en_modification.name;
+
+    player_card.querySelector(".player-details p").textContent =
+        joueur_en_modification.post;
+}
 
 
-    if (joueurEnModification.positionChoisie) {
+    if (joueur_en_modification.position_choisie) {
         const position = document.querySelector(
-            `[data-position="${joueurEnModification.positionChoisie}"]`
+            `[data-position="${joueur_en_modification.position_choisie}"]`
         );
         if (position) {
             position.querySelector("p").textContent =
-                `${joueurEnModification.number}  ${joueurEnModification.name}`;
+                `${joueur_en_modification.number}  ${joueur_en_modification.name}`;
         }
     }
     setitems(list_of_players);
-    editModal.setAttribute("hidden", "");
-    joueurEnModification = null;
-    postEdit = "";
+    edit_modal.setAttribute("hidden", "");
+    joueur_en_modification = null;
+    post_edit = "";
 });
 
 for(const player of list_of_players)

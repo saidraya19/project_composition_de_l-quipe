@@ -143,7 +143,7 @@
 
             <br>
 
-            <!-- Nom -->
+      
             <div class="flex flex-col">
                 <label class="cursor-pointer" for="edit-player">
                     Nom complet
@@ -160,7 +160,7 @@
 
             <br>
 
-            <!-- Poste -->
+     
             <div class="flex items-center gap-2">
                 <h3 class="opacity-40 m-0">Poste</h3>
                 <p class="edit-msg-post m-0"></p>
@@ -168,7 +168,7 @@
 
             <div class="flex flex-col gap-6">
 
-                <!-- Gardien et Milieu -->
+                
                 <div class="flex items-center gap-8">
 
                     <div class="flex items-center gap-2">
@@ -289,7 +289,8 @@
             </div>
             </div>
         </div>
-        <div id="tairen" class="terrain-container">
+        <div class="w-full max-w-full min-w-0 overflow-x-auto overflow-y-hidden">
+        <div id="tairen" class="terrain-container min-w-[650px]">
             <div class="par2">
                 <div class="bo6  border-2 border-dashed border-white/40"  data-position="GB">
     <h2>GB</h2>
@@ -339,7 +340,7 @@
 </div>
             </div>
         </div>
-
+     </div>
     </div>
 </main>
 <div id="modal-delete" hidden
@@ -364,6 +365,10 @@
         </div>
 
     </div>
+</div>
+<div id="msg-success" hidden
+     class="fixed inset-0 z-20 flex items-end justify-center bg-black/60 backdrop-green-sm p-4">
+     <p> player added Successfully</p>
 </div>
 </body>
 <script src="team.js"></script>
