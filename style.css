@@ -12,24 +12,11 @@ body {
     box-sizing: border-box;
 }
 
-
-.sections {
-    display: flex;
-    flex-direction: row;
-    gap: 25px;
-    align-items: stretch;
-    width: 100%;
-    margin: 0;
-    padding-left: 20px; 
-    padding-right: 0;  
-    box-sizing: border-box;
-}
 .sidebar {
-    width: 320px;
-    flex-shrink: 0; 
     display: flex;
     flex-direction: column;
     gap: 15px;
+    min-width: 0;
 }
 .btn-add {
     width: 100%;
@@ -116,26 +103,32 @@ body {
     font-size: 14px;
 }
 .terrain-container {
-    padding: 40px;
-    flex: 1; 
+    flex: 1;
     min-width: 0;
     background: #1e293b;
-    border-radius: 10px;}
+    border-radius: 10px;
+    box-sizing: border-box;
+}
 .par2 {
     display: grid;
     grid-template-rows: repeat(9, 1fr);
-    grid-template-columns: repeat(12, 1fr);
+    grid-template-columns: repeat(12, minmax(0, 1fr));
     gap: 10px;
+
+    width: 100%;
+    min-width: 700px;
+    height: 600px;
+
+    padding: 20px;
+    box-sizing: border-box;
+
     background-image: url('img.jpg');
-    background-size: cover;
+    background-size: 100% 100%;
     background-position: center;
     background-repeat: no-repeat;
-    padding: 20px;
-    width: 100%;
-    height: 600px;
+
     border-radius: 20px;
-    box-sizing: border-box;
-    box-shadow: 0 10px 30px rgba(0, 0, 0, 0.5);
+    flex-shrink: 0;
 }
 .par2 > div {
     display: flex;
@@ -205,9 +198,6 @@ body {
 .bo9 { 
     grid-column: 10 / 12;
     grid-row: 7 / 8;
-}
-.sections{
-    display:flex;
 }
 .scall {
     animation: scall 0.65s linear forwards;

@@ -60,7 +60,7 @@
 
     </header>
 
-   <main class="main-container">
+   <main class="main-container min-h-screen h-auto overflow-visible">
     <div class=" scall absolute w-full h-full flex justify-center items-center  backdrop-blur-[1px] " hidden id="ajout">
  <div class="flex justify-center items-center " >
     <div class="w-120 border h-123 p-10  rounded-xl bg-slate-950  " >
@@ -123,7 +123,7 @@
     </div>
     </div>
     </div>
-<!-- Popup Modifier un joueur -->
+
 <div class="scall absolute w-full h-full flex justify-center items-center backdrop-blur-[1px]"
      hidden id="modifier">
 
@@ -250,8 +250,9 @@
         </div>
     </div>
 </div>
-    <div class="sections">
-        <div class="sidebar">
+
+    <div class="sections !flex flex-col md:!flex-row gap-6 w-full">
+      <div class="sidebar !w-full md:!w-80 md:!shrink-0 order-2 md:order-1">
             <div class="add-player-box">
                 <button class="btn-add ajout-btn">+ Ajouter un joueur</button></div>
             <div class="effectif-header">
@@ -264,9 +265,13 @@
             <div class="description-text">
                 <p>Cliquez sur un joueur placé pour voir sa case sur le terrain. ✏️ pour modifier, 🗑️ pour supprimer</p>
             </div>
+            <div class = "border p-5 rounded-md" hedden id="auc">
+                        <p>aucun joueur pour le moment</p>
+                    </div>
             <div class="form_general_player form_general_player max-h-[500px] overflow-y-auto overscroll-contain">
             <div class="player-card">
                 <div class="select-group">
+                    
     <label>
         Sélectionner la position :
         <select class="custom-select">
@@ -289,9 +294,10 @@
             </div>
             </div>
         </div>
-        <div class="w-full max-w-full min-w-0 overflow-x-auto overflow-y-hidden">
-        <div id="tairen" class="terrain-container min-w-[650px]">
-            <div class="par2">
+        
+   <div class="w-full min-w-0 order-1 md:order-2 overflow-x-auto">
+    <div id="tairen" class="terrain-container !w-full !min-w-0 !p-2 md:!p-10">
+        <div class="par2">
                 <div class="bo6  border-2 border-dashed border-white/40"  data-position="GB">
     <h2>GB</h2>
     <p>Libre</p>
@@ -342,6 +348,7 @@
         </div>
      </div>
     </div>
+    
 </main>
 <div id="modal-delete" hidden
      class="fixed inset-0 z-50 flex items-center justify-center bg-black/60 backdrop-blur-sm p-4">
@@ -367,9 +374,13 @@
     </div>
 </div>
 <div id="msg-success" hidden
-     class="fixed inset-0 z-20 flex items-end justify-center bg-black/60 backdrop-green-sm p-4">
-     <p> player added Successfully</p>
+     class="fixed inset-0 z-20 flex items-center justify-center bg-green/60 p-4">
+    <p class="text-white-500 border border-white-500 rounded-lg px-4 py-2 bg-green-500">
+        Player added successfully
+    </p>
 </div>
+
+
 </body>
 <script src="team.js"></script>
 

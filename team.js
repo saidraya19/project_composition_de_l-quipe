@@ -70,6 +70,15 @@ if (nom_valide && numero_valide && !number_validation && post !== "") {
         number: Number(number.value),
         post: post
     };
+   const success = document.querySelector("#msg-success");
+success.querySelector("p").textContent = "Player added successfully";
+
+success.removeAttribute("hidden");
+
+setTimeout(function() {
+success.setAttribute("hidden", "");
+}, 1500);
+
 
     list_of_players.push(add_data);
     setitems(list_of_players);
@@ -132,6 +141,7 @@ if (nom_valide && numero_valide && !number_validation && post !== "") {
 const all = document.querySelector(".form_general_player");
 const select_template = all.querySelector(".select-group").cloneNode(true);
 all.querySelector(".player-card").remove();
+// hna kanakhdo ma3lomat 3la la3ib li ghan3adlo o kanakhdo variables nkhazno fih id bach nthakmo bih
 let joueur_en_modification = null;
 let post_edit = "";
 
@@ -149,21 +159,16 @@ edit_post_buttons.forEach(function(btn) {
         edit_post_buttons.forEach(function(other_btn) {
             other_btn.classList.remove("bg-[oklch(66.6%_0.179_58.318)]");
         });
-
         btn.classList.add("bg-[oklch(66.6%_0.179_58.318)]");
         post_edit = btn.textContent.trim();
-
     });
-
 });
-
 const colors = {
     "Gardien": "border-l-yellow-500!",
     "Défenseur": "border-l-blue-500!",
     "Milieu": "border-l-green-500!",
     "Attaquant": "border-l-red-500!"
 };
-
 const border_by_pos = {
     GB: "border-yellow-400!",
     DG: "border-blue-400!", DC1: "border-blue-400!", DC2: "border-blue-400!", DD: "border-blue-400!",
@@ -185,10 +190,17 @@ function colorer_joueur(container, div_number, poste) {
         container.classList.add("border-l-4!", color);
         div_number.classList.add("border-l-4!", color);
     }
-
-    console.log("Poste:", poste, "| Couleur:", color);
 }
 function show(player){
+        const aucun = document.querySelector("#auc");
+
+    if (list_of_players.length === 0) {
+        aucun.removeAttribute("hidden");
+    } else {
+        aucun.setAttribute("hidden", "");
+    }
+  
+
     const select_group = select_template.cloneNode(true);
 
 const select = select_group.querySelector("select");
@@ -257,7 +269,17 @@ if (select.value === "banc") {
                 }
             }
         })
-    }
+    }else{
+         
+                const chkon = player.name
+                 const success = document.querySelector("#msg-success");
+            success.removeAttribute("hedden")
+             success.querySelector("p").textContent = " this player not acssus to this post"
+             success.removeAttribute("hidden");
+             setTimeout(function() {
+                success.setAttribute("hidden", "");
+            }, 1500);
+        }
 
 });
 
@@ -334,7 +356,16 @@ remove.addEventListener("click", function() {
         const index = list_of_players.indexOf(player);
 
         if (index !== -1) {
+            const chkon = player.name;
             list_of_players.splice(index, 1);
+            //message of remove 
+            const success = document.querySelector("#msg-success");
+            success.removeAttribute("hedden")
+             success.querySelector("p").textContent = `${chkon} removed successfully`
+             success.removeAttribute("hidden");
+             setTimeout(function() {
+                success.setAttribute("hidden", "");
+            }, 1500);
         }
         container.remove();
         document.querySelector(".length").textContent =
@@ -431,8 +462,17 @@ joueur_en_modification.post = post_edit;
     }
     setitems(list_of_players);
     edit_modal.setAttribute("hidden", "");
+     const chkon = joueur_en_modification.name
     joueur_en_modification = null;
     post_edit = "";
+     //message of edit
+            const success = document.querySelector("#msg-success");
+            success.removeAttribute("hedden")
+             success.querySelector("p").textContent = `${chkon} Edited successfully`
+             success.removeAttribute("hidden");
+             setTimeout(function() {
+                success.setAttribute("hidden", "");
+            }, 1500);
 });
 
 for(const player of list_of_players)
