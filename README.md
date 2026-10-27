@@ -1,10 +1,10 @@
-# ⚽ Tachkila Atlas FC
+#  Tachkila Atlas FC
 
 ##  Description
 
 Tachkila Atlas FC est une application web permettant de gérer les joueurs et de créer une composition d'équipe de football en formation 4-4-2.
 
-## ✨ Fonctionnalités
+##  Fonctionnalités
 
 * Ajouter, modifier et supprimer des joueurs.
 * Gérer le nom, le numéro et le poste de chaque joueur.
